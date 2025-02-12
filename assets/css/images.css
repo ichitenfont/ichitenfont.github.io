@@ -1,0 +1,30 @@
+/* 圖片壓縮 */
+figure {
+    margin-inline: 0;
+}
+img {
+    display: block;
+    max-width: min(100%, 750px);
+    max-height: 65vh;
+    margin-inline: auto;
+}
+img[align=right] {
+    padding-inline-start: 20px
+}
+img[align=left] {
+    padding-inline-end: 20px
+}
+figcaption {
+    text-align: center;
+    margin-block-start: 0.5em;
+}
+/* 豎排切換 */
+.show-vert {
+    display: none;
+}
+html.vert .show-hori {
+    display: none !important;
+}
+html.vert .show-vert {
+    display: block !important;
+}

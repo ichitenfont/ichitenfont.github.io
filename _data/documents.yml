@@ -1,0 +1,52 @@
+---
+# 文檔元數據
+# 用于自動更新全部使用數據的頁面
+
+components:
+  name: 部件檢校表
+  image: /assets/images/components.svg
+  tags:
+    - 字形
+  description: >-
+    由「一點字坊」以部件爲單位整理最具代表性的傳承字形形體，力求遵從字理、展現傳承漢字構字且保留漢字韻味的科學系統
+  url: https://github.com/ichitenfont/inheritedglyphs/blob/master/component_of_recom_inherited_glyphs-1.37.pdf
+  latest-version: 1.37
+  latest-release-date: 2024-05-02
+  action-name: 詳細閱讀
+
+recommended-glyphs:
+  name: 推薦形體表
+  image: /assets/images/recom-table.svg
+  tags:
+    - 字形
+    - 字表
+  description: >-
+    以《部件檢校表》爲基礎，在Big5範圍內制定與電腦編碼對應的「一點字坊」傳承字形推薦的漢字字形，提供給各字型廠商參考製作數位字型
+  url: https://github.com/ichitenfont/inheritedglyphs/blob/master/table_of_recom_inherited_glyphs-1.04.pdf
+  latest-version: 1.04
+  latest-release-date: 2022-09-17
+  action-name: 詳細閱讀
+
+strokes:
+  name: 筆畫表
+  image: /assets/images/strokes.svg
+  tags:
+    - 筆畫
+  description: >-
+    以清晰、統一的定義釐定筆畫叫法，避免表達不清的情況，且採用意譯方式釐定英文叫法
+  url: https://github.com/ichitenfont/inheritedglyphs/blob/master/stroke_of_inherited_glyphs-1.27.pdf
+  latest-version: 1.27
+  latest-release-date: 2022-09-17
+  action-name: 詳細閱讀
+
+suppchara:
+  name: 常用香港外字表
+  tags:
+    - 字表
+  description: >-
+    參考香港常用漢字列表，整理粵語書寫文本、粵地區用字，便於進行 Big5 字型的增補工作
+  url: https://github.com/ichitenfont/suppchara
+  latest-version: 1.8
+  latest-release-date: 2022-09-06
+  action-name: 完整字表
+

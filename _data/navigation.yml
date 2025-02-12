@@ -1,0 +1,16 @@
+---
+# header 導覽列表
+
+- name: 匯整成果
+  link: /results
+- name: 推薦形體
+  link: /recommended-glyphs
+- name: 部件搜索
+  link: /component-search
+- name: 漢字搜索
+  link: /char-search
+  folder: char-search/
+- name: 下載字型
+  link: /fonts
+- name: 文章
+  link: /blog

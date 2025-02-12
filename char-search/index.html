@@ -1,0 +1,145 @@
+---
+title: 漢字搜索
+custom_css:
+- search
+- char
+---
+
+<div style="float: right; text-align: right;">
+    <label><input type="checkbox" id="change-var"> 切換異體＊</label>
+</div>
+
+<h1 class="theme-underline">漢字搜索</h1>
+
+<input id="searchChar" class="searchtextbox" type="text" placeholder="搜索漢字……" onchange="searchChar()">
+
+<div id="results">
+</div>
+
+<small>
+    本頁面使用<a href="{{ site.data.documents.recommended-glyphs.url }}">《傳承字形推薦形體表》</a>的資料進行搜索。
+    <br>
+    <br>
+    ＊異體版漢字不一定是推薦形體，請詳細閱讀《檢校表》。
+</small>
+
+<template id="search-results-row">
+    <div class="search-record">
+        <div class="search-header">
+            <div class="main-char">字</div>
+            <div class="info">
+                <!-- <span>U+5B57</span>
+                    <span>推薦形體表：0xAB2D</span>
+                <span>Big5：0xAB2D</span>
+                <span>不應使用</span>
+                <span>宜使用：圖</span> -->
+            </div>
+        </div>
+        <!-- <div class="search-details">
+           
+        </div> -->
+    </div>
+</template>
+
+<script>
+var charRecords;
+var useVar = false;
+
+fetch("search_char.json").then(response => response.json())
+.then((data) => {charRecords = data})
+.then(()=> searchChar());
+
+// 搜索區添加宜使用字
+function addSearchChar(char) {
+    document.getElementById("searchChar").value += char;
+    searchChar();
+}
+
+// 切換異體，然後重新渲染
+document.getElementById("change-var").onclick = (event) => {
+    useVar = event.target.checked;
+    searchChar()
+}
+
+function searchChar(){
+    const searchTerm = document.getElementById("searchChar").value;
+    const resultsAllDiv = document.getElementById("results");
+    resultsAllDiv.innerHTML = '';
+    
+    seenchars = [];
+    for(const char of searchTerm) {
+        let unidec = char.codePointAt();
+        if (!(unidec in charRecords)) continue; //跳過沒有數據的漢字
+        if (seenchars.includes(unidec)) continue; //跳過已經顯示的漢字
+        seenchars.push(unidec);
+        
+        // 獲取資料
+        const charInfo = charRecords[unidec];
+        // 複製一行
+        let clone = document.getElementById("search-results-row").content.firstElementChild.cloneNode(true);
+        // 輸入資料
+        // 預覽漢字
+        clone.querySelector("div.main-char").innerText = char;
+        // 如果要看異體
+        if (useVar) {
+            clone.querySelector("div.main-char").classList.add("iming-var")
+        }
+        // 其他信息
+        let details = clone.querySelector("div.search-header .info");
+        details.appendChild(makeNewInfoSpan(`U+${charInfo['unicode']}`));
+        if ('document-src' in charInfo) {
+            details.appendChild(makeNewInfoSpan(`推薦形體表：${charInfo['document-src']}`));
+        }
+        if ('big5' in charInfo) {
+            if ('hkscs' in charInfo && charInfo['hkscs']) {
+                details.appendChild(makeNewInfoSpan(`HKSCS：0x${charInfo['big5']}`));
+            } else {
+                details.appendChild(makeNewInfoSpan(`Big5：0x${charInfo['big5']}`));
+            }
+        }
+        if ('shouldRemove' in charInfo) {
+            details.appendChild(makeNewInfoSpan('不應使用'));
+            clone.querySelector("div.main-char").classList.add("should-remove")
+        }
+        if ('shouldUse' in charInfo) {
+            newspan = makeNewInfoSpan('宜使用：');
+            newspan.innerHTML += `<a href="#" onclick="addSearchChar('${charInfo['shouldUse']}')">${charInfo['shouldUse']}</a>`;
+            details.appendChild(newspan);
+        }
+
+        // 輸入注釋
+        if ('comment' in charInfo) {
+            let detailsDiv = document.createElement("div");
+            detailsDiv.classList.add('search-details');
+            detailsDiv.innerHTML = "註釋：" + charInfo['comment'];
+            detailsDiv.querySelectorAll("img").forEach((img) => {
+                // 處理注釋圖片字大小
+                img.classList.add("picture-char");
+                // 替換成網頁版推薦形體表
+                img.src = "https://ichitenfont.github.io/recom/" + img.getAttribute('src');
+            })
+            // console.log(clone)
+            clone.appendChild(detailsDiv);
+        }
+
+        // 插入結果
+        resultsAllDiv.appendChild(clone);
+    }
+    
+    if (resultsAllDiv.innerHTML === "") emptySearch();
+}
+function makeNewInfoSpan(text) {
+    let spantemp = document.createElement("span");
+    spantemp.textContent = text;
+    return spantemp;
+}
+function emptySearch() {
+    const resultsAllDiv = document.getElementById("results");
+    let errorDiv = document.createElement("div");
+    errorDiv.classList.add("search-record");
+    errorDiv.classList.add("search-empty");
+    errorDiv.innerText = "輸入漢字以搜索傳承字形推薦形體。"
+    resultsAllDiv.appendChild(errorDiv);
+}
+emptySearch()
+</script>

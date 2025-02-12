@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" color-mode="light">
+    <head>
+        <meta charset="utf-8" />
+        {% if page.draft or page.hidden %}
+        <meta name="robots" content="noindex" />
+        {% endif %}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Site metadata 網站信息 -->
+        {%- capture pagetitle -%} 
+            {{ site.title | append: " " }}  
+            {%- if page.is_post -%} 
+                - 文章
+                {%- if page.draft -%}（草稿）{%- endif -%}
+                ：{{ page.title }}
+            {%- elsif page.title and page.title != "" -%} 
+                - {{ page.title }} 
+            {%- endif -%} 
+        {%- endcapture -%}
+
+        <title>{{ pagetitle }}</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="https://github.com/ichitenfont.png"
+        />
+        <meta name="title" content="{{ pagetitle }}" />
+        <meta name="keywords" content="{{ site.keywords | join: ',' }}" />
+        <meta name="description" content="{{ site.description }}" />
+        <meta name="author" content="{{ site.author }}" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+        />
+
+        <!-- OG metadata 其他信息 -->
+        <meta property="og:description" content="{{ site.description }}" />
+        <meta property="og:locale" content="zh_Hant" />
+        <meta property="og:locale:alternate" content="zh_TW" />
+        <meta property="og:locale:alternate" content="zh_HK" />
+        <meta property="og:site_name" content="{{ site.title }}" />
+
+        <!-- styling 樣式 -->
+        <link rel="stylesheet" href="/assets/css/index.css" />
+        <link rel="stylesheet" href="/assets/css/header.css" />
+        <link rel="stylesheet" href="/assets/css/footer.css" />
+        {% if layout.custom_css %} {% for stylesheet in layout.custom_css %}
+        <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css" />
+        {% endfor %} {% endif %} {% if page.custom_css %} {% for stylesheet in
+        page.custom_css %}
+        <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css" />
+        {% endfor %} {% endif %}
+
+        <!-- webfont 網頁字體 -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/ichitenfont/I.MingWebfont/index.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Taviraj:ital,wght@0,300;1,300&display=swap"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap"
+        />
+    </head>
+    <body>
+        {% include header.html %} {{ content }} {% include footer.html %}
+    </body>
+
+    <script>
+        {% include use-original-ipa.js %}
+        {% include color-theme.js %}
+        {% include writing-direction.js %}
+    </script>
+</html>

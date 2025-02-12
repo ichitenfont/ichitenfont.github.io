@@ -1,0 +1,105 @@
+---
+layout: default
+custom_css:
+    - blogpost
+    - images
+---
+
+<article>
+    {% comment %} 草稿顯示警吿 {% endcomment %}
+    {% if page.draft or page.hidden %}
+    <div class="warning" style="color:red; font-size: 2em;">
+        <blockquote style="border-color: red;">
+            警吿！<br>
+            本文章屬於草稿性質，可能仍未完成，或是 I.字坊仍未公開之，切勿引用參考這些文章。
+        </blockquote>
+    </div>
+    {% endif %}
+
+    <div class="post-info">
+        <span>編寫於 
+            <time datetime="{{ page.date | date: "%Y-%m-%d" }}">
+                <span class="upright-number">{{ page.date | date: "%Y"}}</span> 年
+                <span class="upright-number">{{ page.date | date: "%-m"}}</span> 月
+                <span class="upright-number">{{ page.date | date: "%-d"}}</span> 日
+            </time>
+        </span>
+        <span class="fullwidth-symbols">·</span>
+        <a href="{{ site.url }}{{ page.url }}">永久導向鏈接</a>
+        <span class="fullwidth-symbols">·</span>
+        <a href="{{ site.blog_source_url }}{{ page.path | relative_url | split: '/' | last }}" target="_blank">源文件来源</a>
+    </div>
+    <div class="taglist">
+        {% if page.draft %}
+            <a class="tag" target="_blank" href="/blog/tags/drafts">草稿</a>
+        {% endif %}
+        {% if page.hidden %}
+            <span class="tag">非公開</span>
+        {% endif %}
+        {% for tag in page.tags %}
+            {% if site.data.blog_tags contains tag %}
+                <a class="tag" target="_blank" href="/blog/tags/{{tag}}">{{tag}}</a>
+            {% else %}
+                <span class="tag">{{tag}}</span>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <h1>{{ page.title }}</h1>
+    <div class="theme-underline"></div>
+
+    <div class="post-content">
+        {{content}}
+    </div>
+
+    {% comment %} 不是草稿才顯示評論區 {% endcomment %} 
+    {% unless page.draft or page.hidden %}
+
+    <hr>
+
+    <h3 class="title-underline">評論區，請理性發言</h3>
+    <div id="post-comment" class="post-comment"></div>
+
+    <script defer>
+        const url = new URL(location.href);
+        function deleteCommentEl() {
+            const comment = document.getElementById("post-comment");
+            while (comment.firstChild) {
+                comment.removeChild(comment.firstChild);
+            }
+        }
+        function createCommentEl(theme = "light") {
+            const script = document.createElement("script");
+            script.src = "https://giscus.app/client.js";
+            script.setAttribute("data-repo", "{{ site.giscus.github_repo }}");
+            script.setAttribute("data-repo-id", "{{ site.giscus.github_repo_id }}");
+            // GitHub discussion 的標籤
+            script.setAttribute("data-category", "{{ site.giscus.github_category }}");
+            script.setAttribute("data-category-id", "{{ site.giscus.github_category_id }}");
+            // 提取文章標題和 URL 作爲 issue 的標題
+            script.setAttribute(
+                "data-term",
+                `${document.title.split("：", 2)[1]} [${url.pathname}]`
+            );
+            script.setAttribute("data-strict", 1);
+            script.setAttribute("data-reactions-enabled", 0);
+            script.setAttribute("data-input-position", "top");
+            // 顏色主題
+            script.setAttribute("data-theme", theme);
+            script.setAttribute("data-lang", "zh-HK");
+            script.setAttribute("crossorigin", "anonymous");
+            script.async = true;
+            document.getElementById("post-comment").appendChild(script);
+        }
+
+        let colorMode = localStorage.getItem("color-mode");
+        createCommentEl(colorMode);
+
+        // 主題切換時重新加載評論區
+        document.addEventListener("color-mode-change", () => {
+            deleteCommentEl();
+            createCommentEl(localStorage.getItem("color-mode"));
+        });
+    </script>
+    {% endunless %}
+
+</article>

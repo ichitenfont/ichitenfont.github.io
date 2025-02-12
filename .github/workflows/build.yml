@@ -1,0 +1,51 @@
+name: 構建部署主站
+
+on:
+  workflow_dispatch: # 手動觸發
+  repository_dispatch: # API 遙控觸發
+    types: [trigger-workflow]
+  push: # 推送到 main 分支時觸發
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Pull & update submodule blog posts
+        run: |
+          git submodule update --init --recursive --remote
+
+      - name: Commit files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 更新文章內容倉庫
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3'
+          bundler-cache: true  # runs 'bundle install' and caches installed gems automatically
+
+      - uses: actions/configure-pages@v5 
+
+      - run: bundle exec jekyll build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/deploy-pages@v4

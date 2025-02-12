@@ -1,0 +1,27 @@
+---
+title: 標籤
+---
+<style>
+    ul.tag-lists li {
+        font-size: 1.1em;
+        padding: 6px;
+    }
+</style>
+
+<h1 class="theme-underline">所有標籤</h1>
+
+<p>礙於技術限制，標籤文章列表沒有進行分頁處理，若開啓的標籤有較多文章可能導致瀏覽器卡頓。</p>
+
+<p>或返回<a href="..">全部文章頁面</a>。</p>
+
+<!-- 在 /_data/blog_tags.yml 裏面添加新的標籤這裏就會更新 -->
+<ul class="tag-lists">
+    {% for tag in site.tags %}
+        {% assign tagname = tag[0] %}
+        {% if site.data.blog_tags contains tagname %}
+            <li>
+                <a href="{{ tagname }}">{{ tagname }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

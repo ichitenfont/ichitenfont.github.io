@@ -1,0 +1,206 @@
+header {
+    position: fixed;
+    z-index: 10;
+    inset-block-start: 0;
+    inset-inline: 0;
+    padding-block: 0.5rem;
+    padding-inline: max(1em, calc(50% - 32em));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    container: header / inline-size;
+    overflow: hidden;
+}
+
+@media print {
+    header {
+        position: absolute;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    padding-block-start: 4rem;
+}
+
+/* dark mode switch */
+:root[color-mode="dark"] header {
+    background-color: color-mix(
+        in srgb,
+        var(--colour-canvas-subtle) 40%,
+        transparent
+    );
+}
+
+header .org-logo {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: inherit;
+   
+    & img.logo {
+        block-size: 1.5em;
+        margin-inline-end: 0.5em;
+    }
+}
+
+/* header menu */
+header nav.menu {
+    --img-height: 1.125em;
+    line-height: var(--img-height);
+}
+
+header nav.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+header nav.menu ul li {
+    display: contents;
+}
+
+header nav.menu ul li.icon-item a {
+    margin-inline-start: auto;
+}
+
+header nav.menu ul li.icon-item ~ li.icon-item a {
+    margin-inline-start: 0;
+}
+
+header nav.menu ul li > a {
+    display: inline-block;
+    color: inherit;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Change the background color on mouse-over */
+header nav.menu a:hover,
+header .menu-icon:hover {
+    text-decoration: none;
+    background-color: rgba(222, 222, 222, 0.4);
+    color: var(--text-colour);
+}
+/* dark mode switch */
+:root[color-mode="dark"] header nav.menu a:hover,
+:root[color-mode="dark"] header .menu-icon:hover {
+    background-color: rgba(110, 110, 110, 0.4);
+}
+/* Style the active/current link*/
+header nav.menu a.active {
+    color: color-mix(in srgb, var(--theme-colour) 75%, var(--text-colour));
+    background-color: color-mix(in srgb, var(--theme-colour) 15%, transparent);
+}
+header nav.menu a.active:hover {
+    background-color: color-mix(in srgb, var(--theme-colour) 30%, transparent);
+}
+
+/* switch theme icon */
+header nav.menu li a.change-mode__btn > svg {
+    block-size: var(--img-height);
+    vertical-align: bottom;
+
+}
+
+
+/* Button with class "light--hidden" will be hidden when the site is set to Light Mode */
+/* Button with class "dark--hidden" will be hidden when the site is set to Dark Mode */
+:root[color-mode="light"] .light--hidden,
+:root[color-mode="dark"] .dark--hidden {
+    display: none;
+}
+/* Button with class "hori--hidden" will be hidden when HTML is not vertical */
+/* Button with class "vert--hidden" will be hidden when HTML is vertical */
+html:not(.vert) .hori--hidden,
+html.vert .vert--hidden {
+    display: none;
+}
+
+/* interactive nav menu hamburger icon */
+header .menu-icon {
+    display: none; /* hide hamburger menu icon by default */
+    cursor: pointer;
+    padding: 19px 12px;
+    position: relative;
+    user-select: none;
+    margin: 0;
+    align-self: center;
+    border-radius: 4px;
+}
+header .menu-icon .navicon {
+    background: var(--text-colour);
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: 0.35s;
+    width: 1rem;
+}
+header .menu-icon .navicon:before,
+header .menu-icon .navicon:after {
+    background: var(--text-colour);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: 0.35s;
+    width: 100%;
+}
+header .menu-icon .navicon:before {
+    top: 5px;
+}
+header .menu-icon .navicon:after {
+    top: -5px;
+}
+
+/* menu open/close button animation when interacted */
+header .menu-btn {
+    display: none;
+}
+header .menu-btn:checked ~ .menu-icon .navicon {
+    background: transparent;
+}
+header .menu-btn:checked ~ .menu-icon .navicon:before {
+    transform: rotate(-45deg);
+}
+header .menu-btn:checked ~ .menu-icon .navicon:after {
+    transform: rotate(45deg);
+}
+header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+    top: 0;
+}
+
+/* Add media queries for responsiveness */
+@container header (inline-size < 700px) {
+    /* compress nav menu into hamburger */
+
+    header nav.menu {
+        max-block-size: 0;
+        flex-basis: 100%;
+        min-inline-size: 100%;
+        transition: max-block-size 0.35s;
+        
+        & > ul {
+            margin-block-start: 0.5rem;
+        
+        }
+    }
+
+    header .menu-btn:checked ~ nav.menu {
+        max-block-size: 5.25rem;
+        max-block-size: calc-size(max-content, size);
+    }
+
+    header .menu-icon {
+        display: block; /* display hamburger menu icon */
+    }
+}

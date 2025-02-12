@@ -1,0 +1,70 @@
+---
+title: 匯整成果
+permalink: /results
+---
+
+<h1 class="theme-underline">匯整成果</h1>
+
+<p>此處列出本坊所匯整的漢字資源，方便文字研究者、字型廠商、個人用戶更深入瞭解傳承字形與我們的推薦形體。</p>
+
+<h2>文檔</h2>
+
+<div class="vertical-panels">
+    {% for doc in site.data.documents %}
+        {% comment %} 
+            doc 本身是 array，值爲 (key, value)，下面先把資料抽取出來(doc[1] = value)變成自己的variable
+        {% endcomment %}
+
+        {% assign docinfo = doc[1] %}
+        {% assign docdate = docinfo.latest-release-date %}
+
+        {% comment %} 計算差多少天（來源： https://www.reddit.com/r/Jekyll/comments/kv3lah/calculating_yearsmonths_from_two_dates_6_yrs_2mos/?rdt=33235） {% endcomment %}
+        {% assign calcdate = docdate | date: "%s" | divided_by: 86400 %}
+        {% assign todaydate = 'now' | date: "%s" | divided_by: 86400 %}
+        {% assign diffdays = todaydate | minus: calcdate %}
+
+        <div class="display-panel" data-panel-about="{{ doc[0] }}">
+            {% if docinfo contains 'image' %}
+                <img class="panel-big-media" src="{{ docinfo.image }}">
+            {% endif %}
+            <div class="panel-info">
+                <h3>
+                    {{ docinfo.name }}
+                    {% for tag in docinfo.tags %}
+                        <span class="status-badge small-text">{{ tag }}</span>
+                    {% endfor %}
+                    {% if diffdays < 180 %} {% comment %} 還未180天（半年）就標記有更新 {% endcomment %}
+                        <span class="status-badge small-text updated-badge">近期更新</span>
+                    {% endif %}
+                </h3>
+                <p>
+                    {{ docinfo.description }}
+                </p>
+                <p class="panel-version">
+                    最新版本：{{ docinfo.latest-version }}；{{ docdate | date: "%Y 年 %-m 月 %-d 日"}}
+                </p>
+                <a class="action-btn panel-visit-btn" href="{{ docinfo.url }}">{{ docinfo.action-name }}</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<h2>倉庫</h2>
+
+<div class="vertical-panels">
+    {% for repo in site.data.repositories %}
+        {% assign repoinfo = repo[1] %}
+
+        <div class="display-panel " data-panel-about="{{ repo[0] }}">
+            <div class="panel-info">
+                <h3>
+                    {{ repoinfo.name }}
+                </h3>
+                <p>
+                    {{ repoinfo.description}}
+                </p>
+                <a class="action-btn" href="{{ repoinfo.url }}">{{ repoinfo.action-name }}</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>

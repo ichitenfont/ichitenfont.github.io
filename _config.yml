@@ -1,0 +1,140 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: I.字坊
+author: 一點字坊
+email: ichitenfont@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  一點字坊，傳承字形之美
+url: "https://ichitenfont.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  ichitenfont
+repository: ichitenfont/ichitenfont.github.io
+lang: zh_Hant
+keywords: 
+  - I.字坊
+  - 一點字坊
+  - 一點明體
+  - 傳承字形
+  - I.Ming
+  - inherited
+  - inherited glyphs
+
+## blog settings
+future: true
+blog_source_url: https://github.com/ichitenfont/blog/tree/master/
+# redirect _posts to /blog/ path
+permalink: /blog/:year/:month/:day/:title
+# change XSS feed to /blog/ path
+feed:
+  path: /blog/feed.xml
+# comment system (giscus) settings
+# see https://giscus.app/zh-HK
+giscus:
+    # refer to https://api.github.com/repos/[USERNAME]/[REPONAME]
+    github_repo: ichitenfont/blog
+    github_repo_id: R_kgDON4XGRA
+    # refer to https://giscus.app/api/discussions/categories?repo=[USERNAME]%2F[REPONAME]
+    github_category: 文章討論
+    github_category_id: DIC_kwDON4XGRM4Cm5aQ
+# paginate list of posts
+pagination:
+    enabled: true
+    per_page: 20
+    permalink: "/:num/"
+    trail: 
+        before: 2 # The number of links before the current page
+        after: 2  # The number of links after the current page
+    sort_field: 'date'
+    sort_reverse: true
+
+# default layout for posts and normal page
+defaults:
+  -
+    scope:
+      path: ""
+      type: posts # all posts type page (blog post)
+    values:
+      layout: blogpost
+      is_post: true
+      images: /_posts/images
+      custom_css: char
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: page
+
+# Tags page
+tagging:
+    page_layout: blogtag
+    page_dir: blog/tags
+    page_title: "標籤："
+    ignored_tags: 
+        - 草稿
+        - 永久性草稿
+        - 未分類
+        - 內部用途
+
+# Build settings
+# theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-paginate-v2
+  - jekyll-redirect-from
+  - jekyll-coffeescript
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+  - jekyll-relative-links
+  - jemoji
+  - kramdown-parser-gfm
+  - kramdown
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+exclude:
+    - .vscode
+    - image-src/
+    - vendor/
+    - Gemfile
+    - Gemfile.lock
+
+include:
+    - _posts
+    - .htaccess

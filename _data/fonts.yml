@@ -1,0 +1,36 @@
+---
+# 字型元數據
+# 用于自動更新全部使用數據的頁面
+
+iming:
+  name: 一點明體 I.Ming
+  image: /assets/images/iming.svg
+  tags:
+    - 明體
+    - 開源
+    - IPA 授權
+  description: >-
+    依據「一點字坊」匯整的傳承字形推薦形體製作的開源現代中文字型，使用TrueType格式封裝、依照Unicode編碼的OpenType字型，簡潔明瞭而又不失韻味。基於 IPAmj 明朝體
+  latest-version: 8.10
+  latest-release-date: 2024-04-20
+  actions:
+    main:
+      name: 下載使用
+      url: https://github.com/ichitenfont/I.Ming/releases/download/8.10/I.Ming-8.10.ttf
+    others:
+      - name: 完整版本
+        url: https://github.com/ichitenfont/I.Ming/tree/master/8.10
+
+
+ishsans:
+  name: 一點源黑 I.SHSans
+  tags:
+    - 黑體
+    - 開源
+    - 製作中
+  description: >-
+    依據「一點字坊」匯整的傳承字形推薦形體製作的中文字型，基於思源黑體
+  actions:
+    main:
+      name: 參與貢獻
+      url: https://github.com/orgs/ichitenfont/discussions/6

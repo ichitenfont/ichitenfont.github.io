@@ -1,0 +1,127 @@
+
+h1 {
+    font-size: clamp(2em, calc(6vw), 2.5em);
+    width: fit-content;
+}
+/* 文章信息 */
+.post-info {
+    display: block;
+    font-size: 0.8em;
+    margin-block-end: 0.3em;
+    opacity: 70%;
+}
+/* 文章標籤 */
+.taglist .tag {
+    color: var(--text-colour);
+    font-size: 0.9em;
+    padding: 4px;
+    border: 1px solid var(--text-colour);
+    opacity: 70%;
+    line-height: 2; /* 確保行高，邊框換行不會叠 */
+    white-space: nowrap; /* 不要在標籤裏面斷開 */
+}
+
+.post-content h2,.post-content h3,.post-content h4,.post-content h5,.post-content h6 {
+    margin-block: 1em;
+    margin-inline: 0;
+}
+
+.post-content {
+    font-size: clamp(1em, calc(.0625rem + 2vw), 1.15em); /*略微放大文章內容*/
+    margin-block-start: 1em;
+}
+.post-content p + div, .post-content p + table { /* 代碼段（```）不要分開 */
+    margin-block-start: -1em;
+}
+.post-content div + p{ /* 代碼段（```）不要分開 */
+    margin-block-start: -0.25em;
+}
+/* 標題下劃綫區分層級 */
+.post-content h2 {
+    text-decoration: underline 3px var(--theme-colour);
+    text-underline-offset: 9px;
+}
+.post-content h3 {
+    text-decoration: underline 1.8px var(--theme-colour);
+    text-underline-offset: 8px;
+}
+.post-content h4, .post-content h5, .post-content h6 {
+    text-decoration: underline 1px var(--theme-colour);
+    text-underline-offset: 8px;
+}
+
+/* 列表 */
+.post-content ul,.post-content ol {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 2em;
+}
+.post-content ul ul,.post-content ul ol,.post-content ol ol,.post-content ol ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+.post-content ol ol,.post-content ul ol {
+    list-style-type: lower-roman;
+}
+.post-content ul ul ol,.post-content ul ol ol,.post-content ol ul ol,.post-content ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+.post-content li>p {
+    margin-block-start: 0.5em;
+}
+.post-content li+li {
+    margin-block-start: 0.25em;
+}
+
+.post-content dl {
+    padding: 0;
+}
+.post-content dd {
+    margin-inline-start: 0;
+}
+.post-content dl dd {
+    padding: 0 2em;
+    margin-block-end: 1em;
+}
+
+/* 表格 */
+.post-content td,.post-content th {
+    padding: 0;
+}
+
+.post-content table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    width: max-content;
+    max-inline-size: 100%;
+    overflow: auto
+}
+.post-content table th,.post-content table td {
+    padding-block: 6px;
+    padding-inline: 13px;
+    border: 1px solid var(--colour-border-default)
+}
+.post-content table tr {
+    background-color: var(--colour-canvas-default);
+    border-block-start: 1px solid var(--colour-border-muted);
+}
+
+.post-content table tr:nth-child(2n) {
+    background-color: var(--colour-canvas-subtle);
+}
+
+/* 評論區强制用網頁字體 */
+.post-comment{
+    max-width: 700px;
+    margin-inline: auto;
+    margin-block-start: 1em;
+}
+h3.title-underline {
+    text-decoration: underline 1.8px var(--theme-colour);
+    text-underline-offset: 8px;
+}
+html.vert .post-comment {
+    overflow-y: auto;
+}

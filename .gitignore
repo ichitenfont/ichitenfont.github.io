@@ -1,0 +1,11 @@
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+
+.vscode
+image-src
+serve-dev.bat
+
+**/.DS_Store

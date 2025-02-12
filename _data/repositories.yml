@@ -1,0 +1,24 @@
+---
+# GitHub 倉庫元數據
+# 用于自動更新全部使用數據的頁面
+
+inherited-glyphs-repo:
+  name: 傳承字形標準化文件
+  description: >-
+    由「一點字坊」整理的傳承字形文檔資源
+  url: https://github.com/ichitenfont/inheritedglyphs
+  action-name: 訪問倉庫
+
+iming-repo:
+  name: 一點明體
+  description: >-
+    由「一點字坊」製作的傳承字形推薦明體字型
+  url: https://github.com/ichitenfont/I.Ming
+  action-name: 訪問倉庫
+
+blog-repo:
+  name: 博客網頁
+  description: >-
+    「一點字坊」官網文章源文件
+  url: https://github.com/ichitenfont/blog
+  action-name: 訪問倉庫

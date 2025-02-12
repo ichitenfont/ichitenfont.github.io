@@ -1,0 +1,15 @@
+/* SVG圖片顯示未編碼漢字 */
+img.picture-char {
+    display: inline;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
+    /* 根據西文基綫對齊底部，然後往下壓 */
+    vertical-align: baseline;
+    position: relative;
+    bottom: -0.12em;
+}
+:root[color-mode="dark"] img.picture-char{
+    -webkit-filter: grayscale(1) invert(1);
+    filter: grayscale(1) invert(1);
+}

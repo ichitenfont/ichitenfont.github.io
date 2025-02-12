@@ -1,0 +1,272 @@
+/* colour theme switch based on light/dark mode */
+:root {
+    --theme-invert-filter: none;
+    --theme-colour: #f2ae0b;
+    --secondary-colour: #1f4e79;
+    --secondary-border-colour: #1f4e79af;
+    --on-secondary-colour: white;
+    --background-colour: white;
+    --text-colour: black; /* on background-colour*/
+    --colour-canvas-default: #ffffff;
+    --colour-canvas-subtle: #f6f8fa;
+    --colour-border-default: #d0d7de;
+    --colour-border-muted: hsla(210, 18%, 87%, 1);
+    --zh-font-family: "I.Ming", serif;
+    --en-font-family: "Taviraj", "I.Ming", serif;
+    --title-font-family: "Chocolate Classical Sans", "ChiuKong Gothic",
+        "Source Han Sans KR", "Noto Sans CJK KR", "Source Han Sans K",
+        "Noto Sans KR", sans-serif;
+    color-scheme: light;
+}
+
+:root[color-mode="dark"] {
+    --theme-invert-filter: invert(1) hue-rotate(189deg) brightness(2.08);
+    --secondary-colour: #3990e1;
+    --secondary-border-colour: #3990e1af;
+    --on-secondary-colour: black;
+    --background-colour: #0f0f0f;
+    --text-colour: white; /* on background-colour*/
+    --colour-canvas-default: #0f0f0f;
+    --colour-canvas-subtle: #161b22;
+    --colour-border-default: #30363d;
+    --colour-border-muted: #21262d;
+    color-scheme: dark;
+}
+
+:root {
+    font-size: 16px;
+    font-family: var(--zh-font-family);
+    color: var(--text-colour);
+    background-color: var(--background-colour);
+    
+    &.vert {        
+        writing-mode: vertical-rl !important;
+    }
+}
+
+.theme-invertible {
+    filter: var(--theme-invert-filter);
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+    color: revert;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 4px;
+}
+p {
+    line-height: 1.6;
+    margin-block-start: 0.75em;
+    margin-block-end: 1em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-block-start: 0.5em;
+    margin-block-start: 0;
+    margin-block-end: 0.35em;
+    margin-inline: 0;
+    text-wrap: pretty;
+    font-family: var(--title-font-family);
+    font-weight: normal;
+}
+em:lang(zh) {
+    font-style: normal;
+    text-emphasis: filled circle;
+    text-emphasis-position: under right;
+}
+em:lang(en),
+i:lang(en) {
+    font-family: var(--en-font-family);
+    font-style: italic;
+}
+
+hr {
+    border: none;
+}
+.theme-underline, hr {
+    padding-block-end: 5px;
+    background: left bottom repeat-x
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='5' fill='%23f2ae0b'><circle cx='2.5' cy='2.5' r='2.5'/><path d='M9 1h9v3H9z'/></svg>");
+}
+html.vert .theme-underline, html.vert hr {
+    background: left top repeat-y
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' height='23' width='5' fill='%23f2ae0b'><circle cx='2.5' cy='2.5' r='2.5'/><path d='M1 9h3v9H1z'/></svg>");
+}
+.theme-underline-fit-text {
+    inline-size: fit-content;
+}
+
+.fullwidth-symbols {
+    font-variant-east-asian: full-width;
+    -moz-font-feature-settings: "fwid";
+    -webkit-font-feature-settings: "fwid";
+    font-feature-settings: "fwid";
+}
+
+/* 縱中橫數字 */
+html.vert .upright-number{
+    text-orientation: upright;
+    text-combine-upright: all;
+}
+
+/* section/article content sidebearing to align center */
+section,
+article {
+    box-sizing: border-box;
+    max-inline-size: calc(64em + 12%);
+    inline-size: 100%;
+    margin-inline: auto;
+    padding-inline: 6%;
+}
+
+/* presentational style for call-to-action panels (horizontal) */
+.panels {
+    display: flex;
+    flex-flow: row wrap;
+    margin-block: 4px;
+    margin-inline: -4px;
+}
+.panels::before,
+.panels::after {
+    content: "";
+    display: block;
+    flex: 16em 1 0;
+    order: 1;
+    margin: 4px;
+}
+.panels .display-panel {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--colour-border-muted);
+    padding: 1em;
+    flex: 16em 1 0;
+    margin: 4px;
+    box-sizing: border-box;
+}
+.panels .display-panel img.panel-big-media {
+    inline-size: 60%;
+    align-self: center;
+    padding-block-end: 12px;
+}
+/* for vertical panels */
+.vertical-panels {
+    display: flex;
+    flex-flow: column wrap;
+    margin-block: 4px;
+    margin-inline: -4px;
+    gap: 6px;
+}
+.vertical-panels .display-panel {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--colour-border-muted);
+    margin: 4px;
+    padding: 1em;
+    gap: 1em;
+}
+.vertical-panels .display-panel img.panel-big-media {
+    inline-size: 15vw;
+    max-block-size: 100%;
+}
+.vertical-panels .display-panel .panel-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+}
+/* smaller size for version num n date */
+.display-panel .panel-version {
+    font-size: 0.8em;
+}
+
+/* call to action button */
+.action-btn,
+.side-btn {
+    line-height: 1;
+    display: inline-block;
+    align-self: start;
+    margin-top: auto;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid var(--secondary-border-colour);
+    color: var(--secondary-colour);
+    background: var(--colour-canvas-default);
+}
+.side-btn {
+    border: none;
+}
+.action-btn:hover {
+    text-decoration: none;
+    border: 1px solid var(--secondary-colour);
+    background: var(--colour-canvas-subtle);
+}
+
+/* markdown quote */
+blockquote {
+    border-inline-start: 3px solid var(--secondary-colour);
+    margin-inline-start: 6px;
+    padding-inline-start: 1em;
+}
+pre {
+    overflow-x: auto;
+    background-color: var(--colour-canvas-subtle);
+    padding: 6px;
+    margin-block: 0.5em;
+    margin-inline: 0;
+}
+code {
+    font-size: 94%;
+    background-color: var(--colour-canvas-subtle);
+    padding: 2px;
+}
+
+/* other iming font styles */
+iming-cp,
+.iming-cp {
+    font-family: "I.MingCP";
+}
+iming-var,
+.iming-var {
+    font-family: "I.MingVar";
+}
+iming-varcp,
+.iming-varcp {
+    font-family: "I.MingVarCP";
+}
+
+/* badge indicating status */
+.status-badge {
+    line-height: 1;
+    display: inline-block;
+    color: #80878f;
+    border: 1px solid var(--colour-border-default);
+    border-radius: 4px;
+    padding: 3px;
+    margin-inline-start: 6px;
+    font-weight: normal;
+    
+    &.small-text {
+        vertical-align: 0.15em;
+    }
+}
+.updated-badge {
+    color: red;
+    border-color: red;
+}
+.small-text {
+    font-size: 0.7em;
+}

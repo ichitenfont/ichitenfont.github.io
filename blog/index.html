@@ -1,0 +1,62 @@
+---
+title: 文章
+custom_css:
+    - char
+    - search
+    - pagination
+pagination: 
+    enabled: true
+    permalink: '/:num.html'
+    title: ":title (頁:num)"
+---
+
+<h1 class="theme-underline">文章</h1>
+
+<p>
+    由「I.字坊」編輯部盛情編寫。若要依照標籤列出文章，可跳轉至<a href="tags/">所有標籤</a>。
+</p>
+
+<div id="results">
+    <!-- 列出所有文章 -->
+    {% for post in paginator.posts %}
+    <div class="search-record">
+        <h2 style="margin-block: 0.2em;"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        <span class="date">{{ post.date | date: "%Y 年 %-m 月 %-d 日" }}</span>
+        <div class="search-details">
+            {{ post.excerpt }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- 分頁跳轉 -->
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+    {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path }}">&laquo; 上一頁</a>
+    {% else %}
+        <span class="disabled-page">&laquo; 上一頁</span>
+    {% endif %}
+
+    {% comment %} 分頁數量，由 _config trail 控制 {% endcomment %}
+    {% for trail in paginator.page_trail %}
+        {% if page.url == trail.path %}
+            <span class="page-number upright-number active-page">{{ trail.num }}</span>
+        {% else %}
+            <a href="{{ trail.path }}" class="page-number upright-number">{{ trail.num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path }}">下一頁 &raquo;</a>
+    {% else %}
+        <span class="disabled-page">下一頁 &raquo;</span>
+    {% endif %}
+</div>
+{% endif %}
+
+<small>
+    「I.字坊」文章也可通過 Atom (RSS) 摘要接收更新：<a href="{{site.url}}/blog/feed.xml">{{site.url}}/blog/feed.xml</a>
+</small>
+
+<br><br>
