@@ -33,7 +33,7 @@ permalink: /results
                     {% for tag in docinfo.tags %}
                         <span class="status-badge small-text">{{ tag }}</span>
                     {% endfor %}
-                    {% if diffdays < 180 %} {% comment %} 還未180天（半年）就標記有更新 {% endcomment %}
+                    {% if diffdays < 365 %} {% comment %} 還未365天（一年）就標記有更新 {% endcomment %}
                         <span class="status-badge small-text updated-badge">近期更新</span>
                     {% endif %}
                 </h3>
@@ -41,7 +41,12 @@ permalink: /results
                     {{ docinfo.description }}
                 </p>
                 <p class="panel-version">
-                    最新版本：{{ docinfo.latest-version }}；{{ docdate | date: "%Y 年 %-m 月 %-d 日"}}
+                    最新版本：{{ docinfo.latest-version }}；
+                    <time datetime="{{ docdate | date: "%Y-%m-%d" }}">
+                        <span class="upright-number">{{ docdate | date: "%Y"}}</span> 年
+                        <span class="upright-number">{{ docdate | date: "%-m"}}</span> 月
+                        <span class="upright-number">{{ docdate | date: "%-d"}}</span> 日
+                    </time>
                 </p>
                 <a class="action-btn panel-visit-btn" href="{{ docinfo.url }}">{{ docinfo.action-name }}</a>
             </div>

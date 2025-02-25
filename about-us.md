@@ -15,7 +15,15 @@ I.字坊（中文：一點字坊；英文：I.Font Project；帳號名：@ichite
 
 若需在學術文檔內引用 I.字坊所編撰之《傳承字形標準化文件》，可參考以下 [MLA 格式引用](https://www.ilc.cuhk.edu.hk/Chinese/APAMLA/MLA/MLAliterature.aspx)：
 
-> I.字坊編輯部：《傳承字形{{ site.data.documents.recommended-glyphs.name }}》（{{ site.data.documents.recommended-glyphs.latest-version }} 版），《傳承字形標準化文件》網站，I.字坊，{{ site.data.documents.recommended-glyphs.latest-release-date | date: "%Y 年 %-m 月 %-d 日"}}， {{ site.data.documents.recommended-glyphs.url }}，{{ site.time | date: "%Y 年 %-m 月 %-d 日"}}讀取。
+> I.字坊編輯部：《傳承字形{{ site.data.documents.recommended-glyphs.name }}》（{{ site.data.documents.recommended-glyphs.latest-version }} 版），《傳承字形標準化文件》網站，I.字坊，<time datetime="{{ site.data.documents.recommended-glyphs.latest-release-date | date: "%Y-%m-%d" }}">
+        <span class="upright-number">{{ site.data.documents.recommended-glyphs.latest-release-date | date: "%Y"}}</span> 年
+        <span class="upright-number">{{ site.data.documents.recommended-glyphs.latest-release-date | date: "%-m"}}</span> 月
+        <span class="upright-number">{{ site.data.documents.recommended-glyphs.latest-release-date | date: "%-d"}}</span> 日
+    </time>， {{ site.data.documents.recommended-glyphs.url }}，<time datetime="{{ site.time | date: "%Y-%m-%d" }}">
+        <span class="upright-number">{{ site.time | date: "%Y"}}</span> 年
+        <span class="upright-number">{{ site.time | date: "%-m"}}</span> 月
+        <span class="upright-number">{{ site.time | date: "%-d"}}</span> 日
+    </time>讀取。
 
 或 [APA 格式引用](https://www.ilc.cuhk.edu.hk/Chinese/APAMLA/APA/APAliterature.aspx)：
 

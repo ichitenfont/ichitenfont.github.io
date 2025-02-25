@@ -33,7 +33,7 @@ permalink: /fonts
                     {% for tag in fontinfo.tags %}
                         <span class="status-badge small-text">{{ tag }}</span>
                     {% endfor %}
-                    {% if diffdays < 180 %} {% comment %} 還未180天（半年）就標記有更新 {% endcomment %}
+                    {% if diffdays < 365 %} {% comment %} 還未365天（一年）就標記有更新 {% endcomment %}
                         <span class="status-badge small-text updated-badge">近期更新</span>
                     {% endif %}
                 </h3>
@@ -42,7 +42,12 @@ permalink: /fonts
                 </p>
                 {% if fontinfo contains 'latest-version' %}
                     <p class="panel-version">
-                        最新版本：{{ fontinfo.latest-version }}；{{ fontdate | date: "%Y 年 %-m 月 %-d 日"}}
+                        最新版本：{{ fontinfo.latest-version }}；
+                        <time datetime="{{ fontdate | date: "%Y-%m-%d" }}">
+                            <span class="upright-number">{{ fontdate | date: "%Y"}}</span> 年
+                            <span class="upright-number">{{ fontdate | date: "%-m"}}</span> 月
+                            <span class="upright-number">{{ fontdate | date: "%-d"}}</span> 日
+                        </time>
                     </p>
                 {% endif %}
                 <div style="margin-top: auto;">

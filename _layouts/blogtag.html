@@ -18,7 +18,13 @@ custom_css:
         {% unless post.hidden or post.draft %}
             <div class="search-record">
                 <h2 style="margin-block: 0.2em;"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-                <span class="date">{{ post.date | date: "%Y 年 %-m 月 %-d 日" }}</span>
+                <span class="date">
+                    <time datetime="{{ post.date | date: "%Y-%m-%d" }}">
+                        <span class="upright-number">{{ post.date | date: "%Y"}}</span> 年
+                        <span class="upright-number">{{ post.date | date: "%-m"}}</span> 月
+                        <span class="upright-number">{{ post.date | date: "%-d"}}</span> 日
+                    </time>
+                </span>
                 <div class="search-details">
                     {{ post.excerpt }}
                 </div>
