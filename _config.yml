@@ -134,7 +134,6 @@ exclude:
     - vendor/
     - Gemfile
     - Gemfile.lock
-    - _posts/**.md # do not process markdown files in blog repository
 
 include:
     - _posts # retain other files in blog repository

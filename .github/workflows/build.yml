@@ -38,7 +38,11 @@ jobs:
 
       - uses: actions/configure-pages@v5 
 
-      - run: bundle exec jekyll build
+      - name: Build Jekyll
+        run: bundle exec jekyll build
+      
+      - name: Remove redundant files
+        run: find ./_site/_posts -name "*.html" -type f; find ./_site/_posts -name "*.html" -type f -delete
 
       - uses: actions/upload-pages-artifact@v3
         with:
